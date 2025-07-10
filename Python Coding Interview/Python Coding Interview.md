@@ -322,6 +322,80 @@ Most frequent word: Python
 
 ---
 
+## 9. Check if String is Palindrome
+
+### Problem Statement
+Determine whether a given string reads the same forwards and backwards (palindrome check).
+
+### Solution
+```python
+a = 'Maalayalam'
+a = a.lower()  # Convert to lowercase for case-insensitive comparison
+
+if a == a[::-1]:
+    print("Yes")
+else:
+    print('No')
+```
+
+### Expected Output
+```
+Yes
+```
+
+### Explanation
+- Convert string to lowercase using `lower()` for case-insensitive comparison
+- `a[::-1]` creates a reversed version of the string using slice notation
+- Compare original (lowercased) string with its reverse
+- If they match, it's a palindrome
+
+### 💡 Pro Tips
+- **Two-Pointer Approach**: More memory efficient for very long strings
+```python
+def is_palindrome(s):
+    left, right = 0, len(s) - 1
+    while left < right:
+        if s[left] != s[right]:
+            return False
+        left += 1
+        right -= 1
+    return True
+```
+- **Interview Tip**: Ask if spaces and punctuation should be ignored
+- **Advanced**: For alphanumeric only: `s = ''.join(c.lower() for c in s if c.isalnum())`
+
+---
+
+## 10. Variable Addition Output
+
+### Problem Statement
+Predict the output of basic variable addition in Python.
+
+### Solution
+```python
+a = 5
+b = 8
+
+print(a + b)
+```
+
+### Expected Output
+```
+13
+```
+
+### Explanation
+- Variables `a` and `b` are assigned integer values 5 and 8
+- The `+` operator performs arithmetic addition on integers
+- Result is 13, which is printed to console
+
+### 💡 Pro Tips
+- **Interview Tip**: This tests basic Python syntax and operator understanding
+- **Type Considerations**: If these were strings, result would be concatenation: `'5' + '8' = '58'`
+- **Dynamic Typing**: Python determines operation based on operand types at runtime
+
+---
+
 ## 🎯 General Interview Tips
 
 ### Time Complexity Discussion
