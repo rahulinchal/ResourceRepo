@@ -396,6 +396,65 @@ print(a + b)
 
 ---
 
+
+## 11. Extract Domain Name from Email
+
+### Problem Statement
+Given an email address, extract the domain name (the part between @ and the first dot).
+
+### Solution
+
+#### Method 1: Using Regular Expressions
+```python
+email = 'sundarpichai007@google.com'
+import re
+
+pattern = r'@(\w+)\.'
+result = re.findall(pattern, email)
+print("Domain using regex:", result)
+```
+
+#### Method 2: Using String Methods
+```python
+email = 'sundarpichai007@google.com'
+
+# Split by @ and get the domain part
+parts = email.split('@')
+print("After splitting by @:", parts)
+
+# Get domain name (before first dot)
+domain = parts[-1].split('.')[0]
+print("Domain name:", domain)
+```
+
+### Expected Output
+```
+Domain using regex: ['google']
+After splitting by @: ['sundarpichai007', 'google.com']
+Domain name: google
+```
+
+### Explanation
+
+**Method 1 (Regex):**
+- `@(\w+)\.` pattern matches @ followed by word characters, captured in group, followed by literal dot
+- `\w+` matches one or more word characters (letters, digits, underscore)
+- Parentheses create a capture group to extract just the domain name
+
+**Method 2 (String Methods):**
+- `email.split('@')` splits email into username and domain parts
+- `parts[-1]` gets the last part (domain.extension)
+- `.split('.')[0]` splits by dot and takes first part (domain name)
+
+### 💡 Pro Tips
+- **Regex Pros**: Powerful pattern matching, handles complex cases
+- **String Methods Pros**: More readable, faster for simple cases, no imports needed
+- **Interview Tip**: Discuss trade-offs between approaches
+- **Edge Cases**: Handle subdomains like 'user@mail.google.com'
+- **Production Code**: Consider using `email.split('@')[1].split('.')[0]` for simplicity
+
+---
+
 ## 12. Extract Order ID Using Regular Expressions
 
 ### Problem Statement
