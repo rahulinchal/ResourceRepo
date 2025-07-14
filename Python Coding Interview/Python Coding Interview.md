@@ -396,6 +396,108 @@ print(a + b)
 
 ---
 
+## 12. Extract Order ID Using Regular Expressions
+
+### Problem Statement
+Extract a specific order ID from a text string using regular expressions pattern matching.
+
+### Solution
+```python
+str1 = 'The order id of a smartphone bought is ABC1234 and bcd5678'
+
+import re
+
+# Pattern to match: letter-letter-digit-digit-digit-digit
+pattern = r'[a-zA-Z]{3}[0-9]{4}'
+
+# Find all matches
+res = re.findall(pattern, str1)
+print("Order IDs found:", res)
+```
+
+### Expected Output
+```
+Order IDs found: ['ABC1234', 'bcd5678']
+```
+
+### Explanation
+- `[a-zA-Z]{3}` matches exactly 3 letters (uppercase or lowercase)
+- `[0-9]{4}` matches exactly 4 digits
+- `re.findall()` returns all non-overlapping matches as a list
+- Pattern captures order IDs in format: 3 letters + 4 digits
+
+### 💡 Pro Tips
+- **Alternative Pattern**: `r'[A-Za-z]{3}\d{4}'` (using `\d` for digits)
+- **Case Sensitivity**: Use `re.IGNORECASE` flag for case-insensitive matching
+- **Interview Tip**: Always ask about the exact format requirements
+- **Validation**: Add word boundaries `\b` to avoid partial matches: `r'\b[a-zA-Z]{3}[0-9]{4}\b'`
+- **Real-world**: Consider using `re.compile()` for repeated pattern matching
+
+---
+
+## 13. Swap Two Numbers
+
+### Problem Statement
+Swap the values of two variables without using a temporary variable.
+
+### Solution
+
+#### Method 1: Multiple Assignment (Pythonic)
+```python
+a = 10
+b = 5
+
+print(f"Before swap: a = {a}, b = {b}")
+
+# Pythonic way - tuple unpacking
+a, b = b, a
+
+print(f"After swap: a = {a}, b = {b}")
+```
+
+#### Method 2: Traditional with Temporary Variable
+```python
+a = 10
+b = 5
+
+# Using temporary variable (commented approach from image)
+# temp = a
+# a = b
+# b = temp
+# print(a, b)
+```
+
+### Expected Output
+```
+Before swap: a = 10, b = 5
+After swap: a = 5, b = 10
+```
+
+### Explanation
+- **Tuple Unpacking**: `a, b = b, a` creates a tuple `(b, a)` and unpacks it to variables
+- Python evaluates the right side first, then assigns to left side simultaneously
+- No temporary variable needed - Python handles this internally
+- Clean, readable, and efficient
+
+### 💡 Pro Tips
+- **Alternative Methods**:
+  ```python
+  # Arithmetic approach (works with numbers only)
+  a = a + b
+  b = a - b
+  a = a - b
+  
+  # XOR approach (works with integers)
+  a = a ^ b
+  b = a ^ b
+  a = a ^ b
+  ```
+- **Interview Tip**: Start with the Pythonic approach, then discuss alternatives
+- **Edge Cases**: Arithmetic method can cause overflow with large numbers
+- **Best Practice**: Always use tuple unpacking `a, b = b, a` in Python
+
+---
+
 ## 🎯 General Interview Tips
 
 ### Time Complexity Discussion
