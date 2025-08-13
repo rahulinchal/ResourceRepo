@@ -556,6 +556,143 @@ After swap: a = 5, b = 10
 
 ---
 
+## 14. Count the Whitespaces
+
+### Problem Statement
+Compare two strings and determine if they have an even or odd difference in whitespace count.
+
+### Solution
+```python
+a = "He ll o W or ld"
+b = "Hello World"
+
+# Count whitespaces in both strings
+res = abs(a.count(" ") - b.count(" "))
+
+if res % 2 == 0:
+    print("Even(res)")
+else:
+    print("Odd(res)")
+
+# Show the actual counts for clarity
+print(f"String a whitespaces: {a.count(' ')}")
+print(f"String b whitespaces: {b.count(' ')}")
+print(f"Absolute difference: {res}")
+```
+
+### Expected Output
+```
+Even(res)
+String a whitespaces: 6
+String b whitespaces: 1
+Absolute difference: 5
+```
+
+Wait, let me recalculate this:
+- String a: "He ll o W or ld" has 6 spaces
+- String b: "Hello World" has 1 space  
+- Difference: |6 - 1| = 5
+- 5 % 2 = 1 (odd), so output should be "Odd(res)"
+
+### Corrected Expected Output
+```
+Odd(res)
+String a whitespaces: 6
+String b whitespaces: 1
+Absolute difference: 5
+```
+
+### Explanation
+- `a.count(" ")` counts the number of space characters in string a
+- `b.count(" ")` counts the number of space characters in string b
+- `abs()` gets the absolute difference between the two counts
+- `% 2` checks if the difference is even (remainder 0) or odd (remainder 1)
+
+### 💡 Pro Tips
+- **Alternative Methods**: 
+  ```python
+  # Count all whitespace characters (spaces, tabs, newlines)
+  import string
+  whitespace_a = sum(1 for char in a if char in string.whitespace)
+  
+  # Using regex for all whitespace
+  import re
+  whitespace_count = len(re.findall(r'\s', string))
+  ```
+- **Interview Tip**: Ask if only spaces count or all whitespace characters
+- **Edge Cases**: Empty strings, strings with only whitespaces
+- **Performance**: `count()` method is O(n) and very efficient for this task
+
+---
+
+## 15. String Indexing and Mutation
+
+### Problem Statement
+Demonstrate what happens when you try to modify a string character by index and predict the output.
+
+### Solution
+```python
+a = 'python'
+# This line will cause an error - strings are immutable in Python
+# a[0] = 'P'  # TypeError: 'str' object does not support item assignment
+
+print(a)  # Will print original string
+
+# Correct way to modify a string
+a_modified = 'P' + a[1:]  # or a.replace('p', 'P', 1)
+print("Modified version:", a_modified)
+```
+
+### Expected Output
+```
+python
+Modified version: Python
+```
+
+### Explanation
+- **String Immutability**: Strings in Python are immutable - you cannot change individual characters
+- `a[0] = 'P'` would raise a `TypeError` because strings don't support item assignment
+- The `print(a)` statement executes normally, showing the original string
+- To modify strings, you must create new string objects
+
+### Alternative Solutions
+
+#### Method 1: String slicing and concatenation
+```python
+a = 'python'
+# Capitalize first letter
+a_modified = a[0].upper() + a[1:]
+print(a_modified)  # Python
+```
+
+#### Method 2: Using string methods
+```python
+a = 'python'
+# Using built-in methods
+a_modified = a.capitalize()  # Python
+a_title = a.title()  # Python (same result for single word)
+print(a_modified, a_title)
+```
+
+#### Method 3: Converting to list and back
+```python
+a = 'python'
+# Convert to list, modify, convert back
+a_list = list(a)
+a_list[0] = 'P'
+a_modified = ''.join(a_list)
+print(a_modified)  # Python
+```
+
+### 💡 Pro Tips
+- **Key Concept**: Strings are immutable in Python - this is a fundamental concept
+- **Interview Tip**: Always mention immutability when discussing string operations
+- **Memory Efficiency**: String methods create new objects, so be mindful in loops
+- **Best Practices**: Use string methods like `capitalize()`, `title()`, `upper()` when available
+- **Performance**: List conversion method is less efficient for simple modifications
+
+---
+
 ## 16. Find the Length of the Longest Uninterrupted String
 
 ### Problem Statement
