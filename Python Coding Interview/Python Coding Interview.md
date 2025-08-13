@@ -396,7 +396,6 @@ print(a + b)
 
 ---
 
-
 ## 11. Extract Domain Name from Email
 
 ### Problem Statement
@@ -554,6 +553,207 @@ After swap: a = 5, b = 10
 - **Interview Tip**: Start with the Pythonic approach, then discuss alternatives
 - **Edge Cases**: Arithmetic method can cause overflow with large numbers
 - **Best Practice**: Always use tuple unpacking `a, b = b, a` in Python
+
+---
+
+## 16. Find the Length of the Longest Uninterrupted String
+
+### Problem Statement
+Given a string with multiple substrings separated by delimiters, find the length of the longest continuous substring.
+
+### Solution
+```python
+a = 'xyz.xy.xyza'
+
+# Split by delimiter and find max length
+res = len(max(a.split('.'), key=len))
+print("Length of longest substring:", res)
+
+# Alternative: Show all substrings and their lengths
+substrings = a.split('.')
+print("All substrings:", substrings)
+print("Lengths:", [len(s) for s in substrings])
+print("Longest substring:", max(substrings, key=len))
+```
+
+### Expected Output
+```
+Length of longest substring: 4
+All substrings: ['xyz', 'xy', 'xyza']
+Lengths: [3, 2, 4]
+Longest substring: xyza
+```
+
+### Explanation
+- `a.split('.')` splits the string by delimiter '.' into a list of substrings
+- `max(substrings, key=len)` finds the substring with maximum length using `len` as comparison key
+- `len()` of the longest substring gives us the final answer
+- The longest uninterrupted string is 'xyza' with length 4
+
+### Alternative Solutions
+
+#### Method 2: Manual iteration
+```python
+a = 'xyz.xy.xyza'
+
+substrings = a.split('.')
+max_length = 0
+
+for substring in substrings:
+    if len(substring) > max_length:
+        max_length = len(substring)
+
+print("Max length (manual):", max_length)
+```
+
+#### Method 3: Using map and max
+```python
+a = 'xyz.xy.xyza'
+
+max_length = max(map(len, a.split('.')))
+print("Max length (map):", max_length)
+```
+
+### 💡 Pro Tips
+- **Different Delimiters**: Change `split('.')` to `split(delimiter)` for other separators
+- **Multiple Delimiters**: Use regex for complex splitting: `re.split(r'[.,;]', string)`
+- **Interview Tip**: Ask about edge cases - empty string, no delimiters, consecutive delimiters
+- **Time Complexity**: O(n) where n is the length of the string
+- **Space Complexity**: O(k) where k is the number of substrings created
+
+---
+
+## 17. Count the Number of Digits
+
+### Problem Statement
+Create a function to count the number of digits in any integer (positive or negative).
+
+### Solution
+```python
+def count_digits(num):
+    return len(str(abs(num)))
+
+# Test the function
+result = count_digits(453345)
+print("Number of digits:", result)
+
+# Test with negative number
+result_negative = count_digits(-453345)
+print("Number of digits (negative):", result_negative)
+```
+
+### Expected Output
+```
+Number of digits: 6
+Number of digits (negative): 6
+```
+
+### Explanation
+- `abs(num)` converts negative numbers to positive (removes minus sign)
+- `str()` converts the number to string representation
+- `len()` counts the characters in the string, which equals the number of digits
+- Works for both positive and negative integers
+
+### 💡 Pro Tips
+- **Mathematical Approach**: 
+  ```python
+  import math
+  def count_digits_math(num):
+      if num == 0:
+          return 1
+      return math.floor(math.log10(abs(num))) + 1
+  ```
+- **Iterative Approach**:
+  ```python
+  def count_digits_loop(num):
+      num = abs(num)
+      count = 0
+      while num > 0:
+          count += 1
+          num //= 10
+      return count or 1  # Handle zero case
+  ```
+- **Interview Tip**: Discuss time complexity - String method: O(log n), Mathematical: O(1)
+- **Edge Case**: Handle zero specially - it has 1 digit
+
+---
+
+## 18. Find the Second Largest Number
+
+### Problem Statement
+Given a list of numbers with possible duplicates, find the second largest unique number.
+
+### Solution
+```python
+a = [12, 13, 45, 54, 34, 54, 12, 43]
+
+# Remove duplicates using set, sort, and get second largest
+res = sorted(set(a))[-2]
+print("Second largest number:", res)
+
+# Alternative approach with more steps for clarity
+unique_numbers = list(set(a))
+unique_numbers.sort()
+second_largest = unique_numbers[-2]
+print("Second largest (alternative):", second_largest)
+```
+
+### Expected Output
+```
+Second largest number: 45
+Second largest (alternative): 45
+```
+
+### Explanation
+- `set(a)` removes duplicate values: `{12, 13, 34, 43, 45, 54}`
+- `sorted()` arranges unique numbers in ascending order: `[12, 13, 34, 43, 45, 54]`
+- `[-2]` gets the second-to-last element (second largest)
+
+### Alternative Solutions
+
+#### Method 2: Using max() twice
+```python
+a = [12, 13, 45, 54, 34, 54, 12, 43]
+
+largest = max(a)
+# Remove all instances of largest number
+filtered = [x for x in a if x != largest]
+second_largest = max(filtered)
+print("Second largest:", second_largest)
+```
+
+#### Method 3: Single pass algorithm
+```python
+def find_second_largest(arr):
+    if len(arr) < 2:
+        return None
+    
+    largest = second = float('-inf')
+    
+    for num in arr:
+        if num > largest:
+            second = largest
+            largest = num
+        elif num > second and num != largest:
+            second = num
+    
+    return second if second != float('-inf') else None
+
+a = [12, 13, 45, 54, 34, 54, 12, 43]
+result = find_second_largest(a)
+print("Second largest (single pass):", result)
+```
+
+### 💡 Pro Tips
+- **Time Complexity**: 
+  - Set + Sort method: O(n log n)
+  - Single pass method: O(n) - more efficient for large datasets
+- **Interview Tip**: Ask about edge cases - what if all numbers are the same?
+- **Edge Cases**: 
+  - Empty list or single element
+  - All elements are identical
+  - Only two unique elements
+- **Space Optimization**: Single pass method uses O(1) extra space vs O(n) for set method
 
 ---
 
